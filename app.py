@@ -15,7 +15,7 @@ client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
     api_key=API_KEY,
     default_headers={
-        "HTTP-Referer": "https://your-render-url.onrender.com",  # Replace with your real Render URL
+        "HTTP-Referer": "https://royal-bengal-ai-2.onrender.com",  # Replace with your real Render URL
         "X-Title": "Royal Bengal AI",
     }
 )
