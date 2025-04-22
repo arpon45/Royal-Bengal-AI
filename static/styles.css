@@ -1,0 +1,46 @@
+/* ... existing styles ... */
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    body {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    .chat-container {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .chat-header, .chat-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .message {
+        max-width: 100%;
+        word-wrap: break-word;
+    }
+
+    .message-avatar {
+        width: 40px;
+        height: 40px;
+    }
+
+    .message-content {
+        margin-left: 10px;
+    }
+
+    .new-chat-btn, .theme-toggle, .file-upload-btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .command-palette {
+        width: 100%;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+}
+
+/* ... existing styles ... */
