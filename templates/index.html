@@ -534,18 +534,11 @@
         }
 
         .message-actions {
-            position: absolute;
-            right: 0;
-            top: 0;
             display: flex;
             gap: 4px;
+            margin-top: 8px;
             opacity: 0;
             transition: opacity 0.2s ease;
-            background-color: var(--sidebar-bg);
-            border-radius: 18px;
-            padding: 4px;
-            box-shadow: var(--shadow);
-            transform: translateY(-50%);
         }
 
         .message:hover .message-actions {
@@ -811,6 +804,7 @@
             background: var(--tiger-green);
         }
 
+        /* Mobile-specific styles */
         @media (max-width: 768px) {
             .sidebar {
                 width: 100%;
@@ -831,11 +825,60 @@
             }
             
             .message {
-                max-width: 90%;
+                max-width: 100%;
+                padding: 0 10px;
+                gap: 10px;
+            }
+            
+            .message-text {
+                font-size: 16px;
+            }
+            
+            .message-avatar {
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
             }
             
             .typing-indicator {
                 margin-left: 42px;
+            }
+            
+            .welcome-screen {
+                padding: 20px 10px;
+            }
+            
+            .welcome-title {
+                font-size: 24px;
+            }
+            
+            .welcome-subtitle {
+                font-size: 16px;
+            }
+            
+            .welcome-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .feature-card {
+                padding: 15px;
+            }
+            
+            .input-container {
+                padding: 12px 15px;
+            }
+            
+            textarea {
+                padding: 12px 48px 12px 35px;
+                font-size: 16px;
+            }
+            
+            .chat-header {
+                padding: 12px 15px;
+            }
+            
+            .model-info {
+                font-size: 14px;
             }
         }
     </style>
@@ -1063,7 +1106,14 @@
                         chatItem.classList.add('active');
                     }
                     
-                    chatItem.addEventListener('click', () => loadChat(chat.id));
+                    chatItem.addEventListener('click', () => {
+                        loadChat(chat.id);
+                        // Close sidebar on mobile after selecting a chat
+                        if (window.innerWidth <= 768) {
+                            sidebar.classList.remove('open');
+                            sidebarToggle.innerHTML = '<i class="fas fa-paw"></i>';
+                        }
+                    });
                     section.appendChild(chatItem);
                 });
                 
@@ -1179,21 +1229,21 @@
                             <div class="message-time">${timestamp}</div>
                         </div>
                         <div class="message-text">${marked.parse(content)}</div>
+                        <div class="message-actions">
+                            <button class="message-action-btn copy-message-btn" title="Copy">
+                                <i class="far fa-copy"></i>
+                            </button>
+                            ${role === 'user' ? `
+                            <button class="message-action-btn retype-message-btn" title="Edit & Resend">
+                                <i class="fas fa-redo"></i>
+                            </button>
+                            ` : ''}
+                        </div>
                         ${role === 'assistant' ? `
                         <div class="message-reactions">
                             <button class="reaction-btn" data-reaction="👍">👍</button>
                             <button class="reaction-btn" data-reaction="👎">👎</button>
                         </div>
-                        ` : ''}
-                    </div>
-                    <div class="message-actions">
-                        <button class="message-action-btn copy-message-btn" title="Copy">
-                            <i class="far fa-copy"></i>
-                        </button>
-                        ${role === 'user' ? `
-                        <button class="message-action-btn retype-message-btn" title="Edit & Resend">
-                            <i class="fas fa-redo"></i>
-                        </button>
                         ` : ''}
                     </div>
                 `;
