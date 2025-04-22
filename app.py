@@ -9,8 +9,6 @@ app = Flask(__name__)
 
 # ✅ Load API key from environment
 API_KEY = os.getenv("OPENROUTER_API_KEY")
-print("✅ API_KEY Loaded:", "YES" if API_KEY else "NO")
-
 
 # ✅ Initialize OpenRouter client
 client = OpenAI(
