@@ -4,15 +4,16 @@ import json
 from flask_limiter import Limiter
 import time
 from collections import defaultdict
+import os
 
 app = Flask(__name__)
 
-API_KEY = "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"
+API_KEY = os.environ.get("OPENROUTER_API_KEY")
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
     api_key=API_KEY,
     default_headers={
-        "HTTP-Referer": "http://localhost:5000",
+        "HTTP-Referer": "https://yourdomain.onrender.com",  # Replace with your Render URL
         "X-Title": "Royal Bengal AI",
     }
 )
@@ -105,8 +106,8 @@ def internal_error_handler(e):
     }), 500
 
 if __name__ == '__main__':
-    # Remove explicit dotenv loading since API_KEY is already defined
     import os
     os.environ["FLASK_SKIP_DOTENV"] = "1"
-    
-    app.run(debug=True, port=5000)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
+
